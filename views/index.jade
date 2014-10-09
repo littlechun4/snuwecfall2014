@@ -1,5 +1,12 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+    Please Enter your credentials below
+    form#login_form(name="login", method="post", action="/login")
+        div
+            input#username(type="text", placeholder="username", name="username")
+        div
+            input#userpassword(type="password", placeholder="password", name="userpassword")
+        div
+            button#btnLogin(type="submit") Login
+            button#btnSignUp(type="submit") Add User
