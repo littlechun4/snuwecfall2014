@@ -52,20 +52,35 @@ router.post('/signup', function(req, res) {
     var password = req.body.password;
 
     if (req.session.user === undefined) {
-        var new_user = new userModel({'username': username, 'password': password, 'login_count': 0});
+        if (username.length < 5 || username.length > 20) {
+            res.json({'error_code': -1});
+        }
+        else if (password.length < 8 || password.length > 20) {
+            res.json({'error_code': -2});
+        }
+        else {
+            userModel.findOne({'username': username}, function(err, user) {
+                if (user !== null){
+                    res.json({'error_code': -3});
+                }
+                else {
+                    var new_user = new userModel({'username': username, 'password': password, 'login_count': 0});
 
-        new_user.save(function (err) {
-            if (err) {
-                console.log(err);
-            }
-        });
-        
-        new_user.login_count += 1;
-        new_user.save(function (err) {});
+                    new_user.save(function (err) {
+                        if (err) {
+                            console.log(err);
+                        }
+                    });
+                    
+                    new_user.login_count += 1;
+                    new_user.save(function (err) {});
 
-        req.session.user = {'user_name': new_user.username, 'login_count': new_user.login_count};
+                    req.session.user = {'user_name': new_user.username, 'login_count': new_user.login_count};
 
-        res.json(req.session.user);
+                    res.json(req.session.user);
+                }
+            }); 
+        }
     }
     else {
         res.redirect('/');
