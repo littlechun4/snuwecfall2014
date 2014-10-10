@@ -1,5 +1,12 @@
 extends layout
 
+block script
+    script(src='/javascripts/logout.js')
+
 block content
-    Welcome #{username} 
-    You have logged in #{count} times
+    div
+        p
+            div Welcome #{username} 
+            div You have logged in #{count} times
+            div
+                button#btnLogout(type="button") Logout

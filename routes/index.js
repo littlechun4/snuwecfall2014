@@ -5,7 +5,6 @@ var userModel = require('../models/user')
 /* GET home page. */
 router.get('/', function(req, res) {
     if (req.session.user === undefined || req.session.user === null) {
-        console.log(req.session.user);
         res.render('index', { title: 'Express' });
     }
     else {
@@ -43,10 +42,9 @@ router.post('/login', function(req, res) {
     });
 });
 
-router.get('/logout', function(req, res) {
+router.post('/logout', function(req, res) {
     req.session.user = undefined;
-    
-    res.redirect('/');
+    res.send();
 });
 
 /*
