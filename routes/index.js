@@ -93,6 +93,12 @@ router.post('/logout', function(req, res) {
     res.send();
 });
 
+
+router.post('/clearData', function(req, res) {
+    userModel.remove({}, function () {});
+    res.redirect('/');
+});
+
 /*
 router.get('/add_user', function(req, res) {
     var username = 'littlechun4';
