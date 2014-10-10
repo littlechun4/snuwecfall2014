@@ -10,7 +10,7 @@ router.get('/', function(req, res) {
     else {
         var user = req.session.user;
 
-        res.render('user_page', {'username': user.username, 'count': user.login_count});
+        res.render('user_page', req.session.user);
     }
 });
 
@@ -35,10 +35,10 @@ router.post('/login', function(req, res) {
                     }
                 });
                 
-                session_user = {'username': user.username, 'login_count': user.login_count};
+                session_user = {'user_name': user.username, 'login_count': user.login_count};
                 req.session.user = session_user;
 
-                res.json({'username': session_user.username, 'count': session_user.login_count});
+                res.json(req.session.user);
             }
         });
     }
@@ -46,6 +46,32 @@ router.post('/login', function(req, res) {
         res.redirect('/');
     }
 });
+
+router.post('/signup', function(req, res) {
+    var username = req.body.username;
+    var password = req.body.userpassword;
+
+    if (req.session.user === undefined) {
+        var new_user = new userModel({'username': username, 'password': password, 'login_count': 0});
+
+        new_user.save(function (err) {
+            if (err) {
+                console.log(err);
+            }
+        });
+        
+        new_user.login_count += 1;
+        new_user.save(function (err) {});
+
+        req.session.user = {'user_name': new_user.username, 'login_count': new_user.login_count};
+
+        res.json(req.session.user);
+    }
+    else {
+        res.redirect('/');
+    }
+});
+
 
 router.post('/logout', function(req, res) {
     req.session.user = undefined;
