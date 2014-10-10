@@ -16,7 +16,7 @@ router.get('/', function(req, res) {
 
 router.post('/login', function(req, res) {
     var username = req.body.username;
-    var password = req.body.userpassword;
+    var password = req.body.password;
 
     if (req.session.user === undefined) {
         userModel.findOne({'username': username, 'password': password}, function(err, user){
@@ -49,7 +49,7 @@ router.post('/login', function(req, res) {
 
 router.post('/signup', function(req, res) {
     var username = req.body.username;
-    var password = req.body.userpassword;
+    var password = req.body.password;
 
     if (req.session.user === undefined) {
         var new_user = new userModel({'username': username, 'password': password, 'login_count': 0});
