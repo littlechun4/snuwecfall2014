@@ -4,13 +4,14 @@ block script
     script(src='/javascripts/login.js')
 
 block content
-    div
-        p#message_box Please Enter your credentials below
-    form#login_form(name="login", method="post", action=".")
-        div
-            input#username(type="text", placeholder="username", name="username")
-        div
-            input#password(type="password", placeholder="password", name="password")
-        div
-            button#btnLogin Login
-            button#btnSignUp Add User
+    div#content
+        div#message_box_container
+            p#message_box Please Enter your credentials below
+        form#login_form(name="login", method="post", action=".")
+            div
+                input#username(type="text", placeholder="username", name="username")
+            div
+                input#password(type="password", placeholder="password", name="password")
+            div
+                button#btnLogin Login
+                button#btnSignUp Add User
