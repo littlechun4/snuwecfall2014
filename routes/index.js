@@ -18,28 +18,33 @@ router.post('/login', function(req, res) {
     var username = req.body.username;
     var password = req.body.userpassword;
 
-    userModel.findOne({'username': username, 'password': password}, function(err, user){
-        if (err){
-            console.log(err);
-        }
+    if (req.session.user === undefined) {
+        userModel.findOne({'username': username, 'password': password}, function(err, user){
+            if (err){
+                console.log(err);
+            }
 
-        if (user === null){
-             res.json({'error_code': -4});                   
-        }
-        else {
-            user.login_count += 1;
-            user.save(function(err) {
-                if (err) {
-                    console.log(err);
-                }
-            });
-            
-            session_user = {'username': user.username, 'login_count': user.login_count};
-            req.session.user = session_user;
+            if (user === null){
+                 res.json({'error_code': -4});                   
+            }
+            else {
+                user.login_count += 1;
+                user.save(function(err) {
+                    if (err) {
+                        console.log(err);
+                    }
+                });
+                
+                session_user = {'username': user.username, 'login_count': user.login_count};
+                req.session.user = session_user;
 
-            res.render('user_page.jade', {'username': session_user.username, 'count': session_user.login_count});
-        }
-    });
+                res.json({'username': session_user.username, 'count': session_user.login_count});
+            }
+        });
+    }
+    else {
+        res.redirect('/');
+    }
 });
 
 router.post('/logout', function(req, res) {

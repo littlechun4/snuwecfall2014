@@ -1,8 +1,11 @@
 extends layout
 
+block script
+    script(src='/javascripts/login.js')
+
 block content
     Please Enter your credentials below
-    form#login_form(name="login", method="post", action="/login")
+    form#login_form(name="login", method="post", action=".")
         div
             input#username(type="text", placeholder="username", name="username")
         div
