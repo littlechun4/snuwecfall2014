@@ -4,7 +4,8 @@ block script
     script(src='/javascripts/login.js')
 
 block content
-    Please Enter your credentials below
+    div
+        p#message_box Please Enter your credentials below
     form#login_form(name="login", method="post", action=".")
         div
             input#username(type="text", placeholder="username", name="username")
