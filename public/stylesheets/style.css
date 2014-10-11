@@ -3,6 +3,40 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
+#message_box_container {
+    height: 50px;
+}
+
+#form_container {
+    width: 500px;
+    margin: 0 auto;
+}
+
+.control-label {
+    display: inline-block;
+    width: 100px;
+    margin-left: 110px;
+}
+
+.inputval {
+    width: 200px;
+}
+
+#btnLogin {
+    float: left;
+    margin-left: 150px;
+}
+
+#btnSignUp {
+    float: right;
+    margin-right: 150px;
+}
+
+#btnLogout {
+    float: center;
+    margin-top: 20px;
+}
+
 a {
   color: #00B7FF;
 }

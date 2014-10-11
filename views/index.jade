@@ -1,5 +1,20 @@
 extends layout
 
+block script
+    script(src='/javascripts/login.js')
+
 block content
-  h1= title
-  p Welcome to #{title}
+    div#content(class="text-center")
+        div#message_box_container
+            h3#message_box Please Enter your credentials below
+        div#form_container(class="")
+            form#login_form(name="login", method="post", action="." class="form-horizontal" role="form")
+                div(class="form-group")
+                    label(class="control-label col-sm-3") Username
+                    input#username(type="text", placeholder="Username", name="username" class="form-control inputval")
+                div(class="form-group")
+                    label(class="control-label col-sm-3") Password
+                    input#password(type="password", placeholder="Password", name="password" class="form-control inputval")
+                div(class="form-group")
+                    button#btnLogin(class="btn btn-default") Login
+                    button#btnSignUp(class="btn btn-default") Add User
