@@ -15,8 +15,8 @@ router.get('/', function(req, res) {
 });
 
 router.post('/login', function(req, res) {
-    var username = req.body.username;
-    var password = req.body.password;
+    var username = req.param('username');
+    var password = req.param('password');
 
     if (req.session.user === undefined) {
         userModel.findOne({'username': username, 'password': password}, function(err, user){
@@ -48,8 +48,8 @@ router.post('/login', function(req, res) {
 });
 
 router.post('/signup', function(req, res) {
-    var username = req.body.username;
-    var password = req.body.password;
+    var username = req.param('username');
+    var password = req.param('password');
 
     if (req.session.user === undefined) {
         if (username.length < 5 || username.length > 20) {
@@ -98,23 +98,5 @@ router.post('/clearData', function(req, res) {
     userModel.remove({}, function () {});
     res.redirect('/');
 });
-
-/*
-router.get('/add_user', function(req, res) {
-    var username = 'littlechun4';
-    var password = 'asdf';
-
-    var new_user = new userModel({'username': username, 'password': password, 'login_count': 0});
-
-    new_user.save(function(err) {
-        if (err) {
-            console.log(err);
-            res.send('error');
-        }
-    });
-
-    res.send('User added');
-});
-*/
 
 module.exports = router;
